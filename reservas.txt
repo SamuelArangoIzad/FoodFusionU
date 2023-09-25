@@ -1,0 +1,7 @@
+Reserva realizada:
+Día de la semana: 1
+Espacio: 1
+Hora de inicio: 12
+Hora de fin: 1
+Bloque: Block A
+
