@@ -1,55 +1,14 @@
 # FoodFusionU
 Every meal is an adventure waiting to be explored, whether you are looking for vegetarian options, exotic dishes or simply want try something new, our platform will provide you with a list of meals tailored to your preferences.
-ANALISIS Y DISEÑO DE SISTEMAS
-FoodFusionU
-Bienvenido a Food Fusion, la plataforma definitiva para explorar y disfrutar de una 
-experiencia culinaria personalizada como estudiante con apetito curioso.
 
-Aquí en FoodFusionU, nuestro equipo cree que cada comida es una aventura esperando ser 
-explorada, ya sea que esté buscando opciones vegetarianas, platos exóticos o simplemente quiera 
-probar algo nuevo, nuestra plataforma le proporcionará una lista de comidas adaptadas a sus 
-preferencias. . Explora una amplia variedad de cocinas y encuentra sabores que te sorprenderán.
-En FoodFusionU se ha simplificado el proceso de pedido, seleccionando platos favoritos, 
-personalizando el pedido y realizando la compra con un par de clics. También sabemos que ser 
-estudiante a veces implica presupuestos ajustados. Por eso te ofrecemos acceso a ofertas y 
-descuentos exclusivos en tus restaurantes y locales de comida favoritos. Aprovecha al máximo tu 
-dinero mientras disfrutas de tus platos favoritos.
-Reserva de espacios de comida, aquí también te permitimos reservar espacios de comida en 
-restaurantes y establecimientos locales. Celebre con estilo y comodidad mientras disfruta de sus 
-comidas favoritas con amigos y seres queridos.
-Metodología Implementada:
-Implementamos la metodología de cascada, que es un enfoque de desarrollo de proyectos que se 
-basa en la secuencia lineal de etapas, donde cada etapa se completa antes de pasar a la 
-siguiente. Aunque se implementa mayoritariamente en proyectos de desarrollo de software, fue 
-adaptado a este proyecto de FoodFusionU.
-1. Definicion de requerimientos:
-En esta etapa, el equipo identifica y documenta claramente todos los requisitos y objetivos del 
-proyecto, esto incluye definir las principales características de la plataforma y los servicios que se 
-ofrecerán y las necesidades de los usuarios.
-2. Diseño:
-Una vez establecidos los requisitos, el equipo debe pasar a la fase de diseño. Aquí se crea un 
-diseño detallado de la plataforma que incluye la arquitectura de la plataforma, la interfaz de 
-usuario, las principales funcionalidades y cualquier integración con sistemas externos.
-ANALISIS Y DISEÑO DE SISTEMAS
-3. Implementación:
-Con el diseño completo se comienza a desarrollar la plataforma, esto implica la 
-creación de la infraestructura tecnológica necesaria y la codificación de las funcionalidades y la 
-integración de los componentes del sistema.
-4. Evidencia:
-Después de la implementación es importante realizar pruebas exhaustivas para garantizar que la 
-plataforma funcione según lo previsto, esto incluye pruebas de funcionalidad, rendimiento y 
-usabilidad.
-5. Despliegue:
-Una vez que las pruebas son satisfactorias y la plataforma está lista para su uso, se procede al 
-despliegue, que implica lanzar la plataforma y hacerla accesible a los usuarios.
-6. Operacion y mantenimiento:
-Una vez que la plataforma esté en funcionamiento, se debe establecer un proceso continuo de 
-operación y mantenimiento. esto incluye administración de servidores, monitoreo del rendimiento, 
-corrección de errores e implementación de mejoras.
-7. Evaluación y retroalimentación:
-A medida que se utiliza la plataforma FoodFusionU, es importante recopilar comentarios de los 
-usuarios y evaluar su desempeño. Esta información se utiliza para realizar mejoras y ajustes en 
-futuras versiones de la plataforma.
-Importante:
-La metodología en cascada es lineal y secuencial, por lo que se debe completar cada etapa antes 
-de pasar a la siguiente
+FoodFusionU
+Here at FoodFusionU, our team believes that every meal is an adventure waiting to be explored, whether you are looking for vegetarian options, exotic dishes or just want to try something new, our platform will provide you with a list of meals tailored to your preferences. . Explore a wide variety of cuisines and find flavors that will surprise you. At FoodFusionU the ordering process has been simplified, selecting favorite dishes, customizing the order and making the purchase with a couple of clicks. We also know that being a student sometimes means tight budgets. That's why we offer you access to exclusive offers and discounts at your favorite restaurants and food venues. Make the most of your money while enjoying your favorite dishes. Reservation of food spaces, here we also allow you to reserve food spaces in restaurants and local establishments. Celebrate in style and comfort while enjoying your favorite foods with friends and loved ones. Implemented Methodology: We implemented the waterfall methodology, which is a project development approach that is based on the linear sequence of stages, where each stage is completed before moving to the next. Although it is mostly implemented in software development projects, it was adapted to this FoodFusionU project.
+
+Definition of requirements: In this stage, the team clearly identifies and documents all the requirements and objectives of the project, this includes defining the main characteristics of the platform and the services that will be offered and the needs of the users.
+Design: Once the requirements are established, the team must move to the design phase. Here a detailed platform design is created that includes the platform architecture, user interface, main functionalities and any integration with external systems. ANALYSIS AND DESIGN OF SYSTEMS
+
+Implementation: With the complete design, the platform begins to be developed; this involves the creation of the necessary technological infrastructure and the coding of the functionalities and the integration of the system components.
+Evidence: After implementation it is important to perform extensive testing to ensure that the platform works as intended, this includes functionality, performance and usability testing.
+Deployment: Once the tests are satisfactory and the platform is ready for use, the deployment proceeds, which involves launching the platform and making it accessible to users.
+Operation and maintenance: Once the platform is operational, an ongoing operation and maintenance process must be established. This includes server administration, performance monitoring, bug fixes, and implementation of improvements.
+Evaluation and Feedback: As the FoodFusionU platform is used, it is important to collect feedback from users and evaluate their performance. This information is used to make improvements and adjustments in future versions of the platform. Important: The waterfall methodology is linear and sequential, so each stage must be completed before moving to the next
