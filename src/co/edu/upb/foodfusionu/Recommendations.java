@@ -1,12 +1,14 @@
 package co.edu.upb.foodfusionu;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Recommendations {
     public static void recomendaciones() {
-        Scanner scanner = new Scanner(System.in);
+    	
+    	
+    	Scanner scanner = new Scanner(System.in);
+        CarritoDeCompras carrito = new CarritoDeCompras();
         ArrayList<String> pedido = new ArrayList<>();
         ArrayList<Double> precios = new ArrayList<>();
         
@@ -91,29 +93,33 @@ public class Recommendations {
         // se le agregan valores a los productos
             
         // Solicitar al usuario que seleccione un producto
-        System.out.print("Seleccione un producto (o 0 para finalizar el pedido): ");
-        int productoSeleccionado = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el salto de línea
+            System.out.print("Seleccione un producto (o 0 para finalizar el pedido): ");
+            int productoSeleccionado = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el salto de línea
             
-        if (productoSeleccionado == 0) {
-        break; // Termina el pedido si el usuario selecciona 0
-        }
+            if (productoSeleccionado == 0) {
+                break; // Termina el pedido si el usuario selecciona 0
+            }
             
-        // Registra el producto seleccionado y su precio en el pedido
-        if (opcionSeleccionada >= 1 && opcionSeleccionada <= 4) {
-        pedido.add(obtenerProducto(opcionSeleccionada, productoSeleccionado));
-        precios.add(obtenerPrecio(opcionSeleccionada, productoSeleccionado));
-        }
+            // Registra el producto seleccionado y su precio en el carrito
+            if (opcionSeleccionada >= 1 && opcionSeleccionada <= 4) {
+                String producto = obtenerProducto(opcionSeleccionada, productoSeleccionado);
+                double precio = obtenerPrecio(opcionSeleccionada, productoSeleccionado);
+                
+                System.out.print("Ingrese la cantidad: ");
+                int cantidad = scanner.nextInt();
+                scanner.nextLine(); // Limpiar el salto de línea
+                
+                carrito.agregarItem(producto, cantidad, precio);
+                System.out.println("Producto agregado correctamente al carrito de compras");
+            }
         }
         
-        // Mostrar el pedido y calcular el total a pagar
-        System.out.println("Su pedido:");
-        for (int i = 0; i < pedido.size(); i++) {
-        System.out.println(pedido.get(i));
-        total += precios.get(i);
-        }
+        // Mostrar el resumen del carrito y calcular el total a pagar
+        carrito.mostrarResumen();
+        total = carrito.calcularTotal();
         System.out.println("Total a pagar: $" + total);
-        }
+    }
     
         //  Muestra qué se ordenó
         public static String obtenerProducto(int opcion, int seleccion) {
