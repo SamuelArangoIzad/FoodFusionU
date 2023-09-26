@@ -1,206 +1,218 @@
 package co.edu.upb.foodfusionu;
+
 import java.util.*;
 
 public class Request {
 
-    public void realizarPedido() {
-        Scanner scanner = new Scanner(System.in);
-        List<OrderItem> cart = new ArrayList<>();
+	 public void realizarPedido() {
+	        Scanner scanner = new Scanner(System.in);
+	        List<OrderItem> cart = new ArrayList<>();
 
-        Map<String, Food[]> menus = new HashMap<>();
+	        Map<String, Food[]> menus = new HashMap<>();
 
-        menus.put(" Lunes", new Food[]{
-        new Food("Tostadas de aguacate y huevo", "Nutritivo y rico en proteinas y grasas saludables", 5.99, 200, 400),
-        new Food("Ensalada de pollo a la parrilla", "Baja en calorias y alta en proteinas y vitaminas", 7.99, 300, 220),
-        new Food("Batido de proteinas con frutas", "Ideal para recuperarse despues del ejercicio", 4.99, 350, 260)
-        });
+	        menus.put("Comida Vegetariana", new Food[]{
+	                new Food("Ensalada de verduras frescas", "Ensalada refrescante con una variedad de verduras frescas.", 9.99, 250, 120),
+	                new Food("Ensalada de Quinua y Vegetales", "Ensalada nutritiva con quinua y una seleccion de vegetales.", 10.99, 300, 180),
+	                new Food("Tacos con lentejas", "Tacos vegetarianos rellenos de lentejas y sabores frescos.", 8.99, 350, 220),
+	                new Food("Pizza vegetariana", "Pizza con una variedad de verduras y queso.", 11.99, 400, 280),
+	                new Food("Ensalada Basica", "Ensalada sencilla pero deliciosa.", 7.99, 200, 160),
+	                new Food("Barras nutritivas", "Barras energéticas llenas de ingredientes saludables.", 6.49, 150, 190)
+	        });
 
-        menus.put(" Martes", new Food[]{
-        new Food("Batido de frutas y yogur", "Refrescante y lleno de vitaminas y probioticos", 6.49, 250, 380),
-        new Food("Tacos de pavo con guarnicion de quinoa", "Bajos en grasa y ricos en fibra y proteinas", 8.99, 350, 320),
-        new Food("Manzana con mantequilla de almendras", "Satisfactorio y equilibrado", 2.99, 180, 160)
-        });
+	        menus.put("Dulces", new Food[]{
+	                new Food("Brownie de chocolate", "Delicioso brownie de chocolate.", 4.99, 200, 250),
+	                new Food("Helado de frutas", "Helado refrescante con sabores naturales de frutas.", 3.99, 180, 210),
+	                new Food("Crepes de nutella", "Crepes rellenos de Nutella y platanos.", 5.49, 250, 280),
+	                new Food("Churro relleno", "Churro crujiente relleno de crema.", 2.99, 220, 200),
+	                new Food("Obleas", "Obleas con arequipe.", 3.49, 180, 220),
+	                new Food("Postre de limon", "Postre refrescante con sabor a limon.", 4.79, 230, 190)
+	        });
 
-        menus.put(" Miercoles", new Food[]{
-        new Food("Avena con platano y nueces", "Energetico y alto en fibra y grasas saludables", 5.49, 300, 420),
-        new Food("Ensalada de atun con garbanzos", "Rica en proteinas y fibra, baja en grasas", 10.00, 600, 1500),
-        new Food("Yogur griego con miel y almendras", "Lleno de proteinas y energía", 3.99, 250, 280)
-        });
+	        menus.put("Salados", new Food[]{
+	                new Food("Papas de paquete", "Papas crujientes con condimentos.", 4.99, 300, 350),
+	                new Food("Empanada", "Empanada rellena de carne y papas.", 3.99, 220, 180),
+	                new Food("Arepa e huevo", "Arepa rellena de huevo.", 5.49, 260, 240),
+	                new Food("Sandwich", "Sandwich con una variedad de ingredientes.", 6.99, 350, 320),
+	                new Food("Croissant", "Croissant recién horneado.", 3.49, 180, 210),
+	                new Food("Nachos con queso", "Nachos crujientes con queso derretido.", 4.79, 220, 280)
+	        });
 
-        menus.put(" Jueves", new Food[]{
-        new Food("Yogur con granola y frutas", "Satisfactorio y rico en proteinas y fibras", 4.79, 280, 360),
-        new Food("Sandwich de pavo con aguacate", "Sano y lleno de proteínas y grasas saludables", 6.99, 350, 320),
-        new Food("Palitos de zanahoria con hummus", "Nutritivo y bajo en calorias", 3.49, 200, 180)
-        });
+	        menus.put("Nutritiva", new Food[]{
+	                new Food("Ensalada de quinoa y aguacate", "Ensalada nutritiva con quinua, aguacate y verduras frescas.", 8.99, 280, 220),
+	                new Food("Ensalada de proteina", "Ensalada rica en proteínas con pollo a la parrilla.", 9.99, 300, 260),
+	                new Food("Batidos Nutritivos", "Batidos ideales para recuperarse despues del ejercicio.", 6.49, 250, 200),
+	                new Food("Bowls de avena y fruta", "Bowls llenos de avena y frutas frescas.", 7.99, 320, 280),
+	                new Food("Sandwich de pavo", "Sandwich de pavo con ingredientes saludables.", 5.99, 280, 240),
+	                new Food("Sopa de lentejas", "Sopa reconfortante llena de lentejas y verduras.", 4.29, 200, 180)
+	        });
 
-        menus.put(" Viernes", new Food[]{
-        new Food("Tortilla de espinacas y tomate", "Lleno de proteinas y vitaminas", 5.79, 280, 320),
-        new Food("Sopa de pollo con verduras", "Reconfortante y rico en proteinas", 7.49, 350, 280),
-        new Food("Puñado de almendras y nueces", "Lleno de grasas saludables y proteinas", 4.29, 220, 180)
-        });
+	        menus.put("Comida Rapida", new Food[]{
+	                new Food("Hamburguesa en combo", "Hamburguesa jugosa con papas y bebida.", 10.99, 600, 750),
+	                new Food("Perro caliente en combo", "Perro caliente con papas y bebida.", 8.99, 550, 680),
+	                new Food("Salchipapa", "Papas con salchicha y salsas.", 6.49, 450, 550),
+	                new Food("Papas locas", "Papas con diversos condimentos.", 5.99, 400, 500),
+	                new Food("Pizza", "Pizza con una variedad de ingredientes.", 11.99, 750, 800),
+	                new Food("Tacos", "Tacos rellenos de carne y diversas especias.", 9.99, 600, 720),
+	                new Food("Hot dog", "Perro caliente con ingredientes variados.", 7.49, 500, 620)
+	        });
 
-        System.out.println("------Bienvenido al sistema de pedidos de alimentos en linea---------");
+	        menus.put("Bebidas", new Food[]{
+	                new Food("Energizantes", "Bebida energizante para revitalizarte.", 2.99, 180, 220),
+	                new Food("Gaseosa", "Bebida refrescante de cola.", 1.99, 150, 180),
+	                new Food("Agua", "Agua pura y refrescante", 1.49, 0, 0),
+	                new Food("Granizados", "Bebida congelada con sabores.", 3.49, 250, 300),
+	                new Food("Jugos naturales", "Bebida congelada con sabores.", 2.49, 200, 240),
+	                new Food("Té verde", "Té verde caliente o frio.", 1.99, 180, 210)
+	        });
 
-        while (true) {
-        	
-        System.out.print("Elija el día de la semana(Lunes,etc) o 'Salir' para finalizar:");
-        String selectedDay = scanner.nextLine();
+	        System.out.println("------Bienvenido al sistema de pedidos de alimentos en linea---------");
 
-        if (selectedDay.equalsIgnoreCase(" Salir")) {
-        break;
-        }
+	        while (true) {
+	            System.out.println("Elija una categoria de menu (Comida Vegetariana, Dulces, Salados, Nutritiva, Comida Rapida, Bebidas), o escriba 'Salir' para finalizar:");
+	            String selectedCategory = scanner.nextLine();
 
-        if (!menus.containsKey(selectedDay)) {
-        System.out.println("Día no válido. Intente nuevamente.");
-        continue;
-        }
+	            if (selectedCategory.equalsIgnoreCase("Salir")) {
+	                break;
+	            }
+	            if (!menus.containsKey(selectedCategory)) {
+	                System.out.println("Categoria no valida. Intente nuevamente.");
+	                continue;
+	            }
+	            Food[] menu = menus.get(selectedCategory);
 
-        Food[] menu = menus.get(selectedDay);
+	            System.out.println("Menu de alimentos para " + selectedCategory + ":");
+	           
+	            for (int i = 0; i < menu.length; i++) {
+	                System.out.println((i + 1) + ". " + menu[i].getName() + " - $" + menu[i].getPrice());
+	                System.out.println(" Caracteristicas: " + menu[i].getDescription());
+	                System.out.println(" Gramos: " + menu[i].getGrams() + "g");
+	                System.out.println(" Calorias: " + menu[i].getCalories() + " kcal");
+	            }
 
-        System.out.println("Menu de alimentos para " + selectedDay + ":");
+	            System.out.println("Ingrese el numero del artículo que desea agregar al carrito (0 para finalizar):");
+	            int choice = scanner.nextInt();
+	            if (choice == 0) {
+	                break;
+	            }
+	            if (choice < 1 || choice > menu.length) {
+	                System.out.println("Opcion no válida. Intente nuevamente.");
+	                continue;
+	            }
+	            System.out.println("Ingrese la cantidad:");
+	            int quantity = scanner.nextInt();
+	            if (quantity <= 0) {
+	                System.out.println("La cantidad debe ser mayor que cero. Intente nuevamente.");
+	                continue;
+	            }
 
-        for (int i = 0; i < menu.length; i++) {
-        System.out.println((i + 1) + ". " + menu[i].getName() + " - $" + menu[i].getPrice());
-        System.out.println(" Características: " + menu[i].getDescription());
-        System.out.println(" Gramos: " + menu[i].getGrams() + "g");
-        System.out.println(" Calorías: " + menu[i].getCalories() + " kcal");
-        }
+	            Food selectedFood = menu[choice - 1];
+	            OrderItem orderItem = new OrderItem(selectedFood, quantity);
+	            cart.add(orderItem);
+	            scanner.nextLine();
+	        }
 
-        System.out.print("Ingrese número del artículo que agregara al carrito (0 para finalizar):");
-        int choice = scanner.nextInt();
-        if (choice == 0) {
-        break;
-        }
-        if (choice < 1 || choice > menu.length) {
-        System.out.println("Opción no válida. Intente nuevamente.");
-        continue;
-        }
-        System.out.print("Ingrese la cantidad:");
-        int quantity = scanner.nextInt();
-        if (quantity <= 0) {
-        System.out.println("La cantidad debe ser mayor que cero. Intente nuevamente.");
-        continue;
-        }
+	        double total = calculateTotal(cart);
 
-        Food selectedFood = menu[choice - 1];
-        OrderItem orderItem = new OrderItem(selectedFood, quantity);
-        cart.add(orderItem);
-        scanner.nextLine(); // Consumir la nueva línea
+	        System.out.println("Su pedido ha sido confirmado.");
+	        System.out.println("Total a pagar: $" + total);
 
-        System.out.println("Artículo agregado al carrito.");
-         }
+	        System.out.println("Seleccione el metodo de pago:");
+	        System.out.println("1. Pago en efectivo");
+	        System.out.println("2. Pago en línea");
+	        int metodoPago = scanner.nextInt();
 
-         double total = calculateTotal(cart);
+	        if (metodoPago == 1) {
+	            System.out.println("Pagara en efectivo al recoger su pedido.");
+	        } else if (metodoPago == 2) {
+	            realizarPago(total);
+	        } else {
+	            System.out.println("Opcion de pago no válida.");
+	        }
 
-         System.out.println("Su pedido ha sido confirmado.");
-         System.out.println("Total a pagar: $" + total);
+	        System.out.println("Tiempo estimado de recogida: 30 minutos");
+	        
+	    }
 
-         int metodoPago;
-         while (true) {
-         System.out.println("Seleccione el método de pago:");
-         System.out.println("1. Pago en efectivo");
-         System.out.println("2. Pago en línea");
-         System.out.print("Write Here: ");
-         metodoPago = scanner.nextInt();
+	    public static double calculateTotal(List<OrderItem> items) {
+	        double total = 0.0;
+	        for (OrderItem item : items) {
+	            total += item.getFoodItem().getPrice() * item.getQuantity();
+	        }
+	        return total;
+	    }
 
-         if (metodoPago == 1 || metodoPago == 2) {
-         break;
-         } else {
-         System.out.println("Opción de pago no válida. Intente nuevamente.");
-         }
-         }
+	    static class Food {
+	        private String name;
+	        private String description;
+	        private double price;
+	        private int grams;
+	        private int calories;
+	        
+	        public Food(String name, String description, double price, int grams, int calories) {
+	            this.name = name;
+	            this.description = description;
+	            this.price = price;
+	            this.grams = grams;
+	            this.calories = calories;
+	        }
 
-         if (metodoPago == 1) {
-         System.out.println("Pagará en efectivo al recoger su pedido.");
-         } else if (metodoPago == 2) {
-         realizarPago(total);
-         }
+	        public String getName() {
+	            return name;
+	        }
 
-         int valorDado = (int)Math.floor(Math.random()*58+1);
-         System.out.println("Tiempo estimado de recogida: " + valorDado + " Minutos");
-         
-         }
+	        public String getDescription() {
+	            return description;
+	        }
 
-         public static double calculateTotal(List<OrderItem> items) {
-         double total = 0.0;
-         for (OrderItem item : items) {
-         total += item.getFoodItem().getPrice() * item.getQuantity();
-         }
-         return total;
-         }
+	        public double getPrice() {
+	            return price;
+	        }
 
+	        public int getGrams() {
+	            return grams;
+	        }
 
+	        public int getCalories() {
+	            return calories;
+	        }
+	    }
 
-         static class Food{
-    	
-         private String name;
-         private String description;
-         private double price;
-         private int grams;
-         private int calories;
-         public Food(String name, String description, double price, int grams, int calories) {
-         this.name = name;
-         this.description = description;
-         this.price = price;
-         this.grams = grams;
-         this.calories = calories;
-         }
+	    static class OrderItem {
+	        private Food foodItem;
+	        private int quantity;
 
-          public String getName() {
-          return name;
-          }
+	        public OrderItem(Food foodItem, int quantity) {
+	            this.foodItem = foodItem;
+	            this.quantity = quantity;
+	        }
 
-          public String getDescription() {
-          return description;
-          }
+	        public Food getFoodItem() {
+	            return foodItem;
+	        }
 
-          public double getPrice() {
-          return price;
-          }
+	        public int getQuantity() {
+	            return quantity;
+	        }
+	    }
 
-          public int getGrams() {
-          return grams;
-          }
+	    public static void realizarPago(double total) {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.println("Ingrese su numero de tarjeta de débito:");
+	        String numeroTarjeta = scanner.nextLine();
+	        System.out.println("Ingrese la fecha de vencimiento (MM/AA):");
+	        String fechaVencimiento = scanner.nextLine();
+	        System.out.println("Ingrese el codigo de seguridad (CVV):");
+	        String cvv = scanner.nextLine();
 
-          public int getCalories() {
-          return calories;
-          }
-          }	
-    	
-    	
-          static class OrderItem {
-          private Food foodItem;
-          private int quantity;
+	        System.out.println("Pago exitoso. Se ha cargado $" + total + " a su tarjeta debito.");
+	       
+	    }
 
-          public OrderItem(Food foodItem, int quantity) {
-          this.foodItem = foodItem;
-          this.quantity = quantity;
-          }
-
-          public Food getFoodItem() {
-          return foodItem;
-          }
-
-          public int getQuantity() {
-          return quantity;
-          }
-          }
-    
-
-          public static void realizarPago(double total) {
-          Scanner scanner = new Scanner(System.in);
-          System.out.print("Ingrese su numero de tarjeta de debito:");
-          String numeroTarjeta = scanner.nextLine();
-          System.out.print("Ingrese la fecha de vencimiento (MM/AA):");
-          String fechaVencimiento = scanner.nextLine();
-          System.out.print("Ingrese el codigo de seguridad (CVV):");
-          String cvv = scanner.nextLine();
-
-          System.out.println("Pago exitoso. Se ha cargado $" + total + " a su tarjeta debito.");
-          System.out.println("En esta tarjeta: " + numeroTarjeta + " Con esta Fecha de vencimiento: " + fechaVencimiento +" Con este codigo" + cvv);
-        
-          
-          }
+	   /* public static void main(String[] args) {
+	        Request pedido = new Request();
+	        pedido.realizarPedido();
+	    }
+	    */
           
 }
 
