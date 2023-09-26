@@ -5,3 +5,4 @@ Hora de inicio: 12
 Hora de fin: 1
 Bloque: Block A
 
+Z,Miercoles,10,6:30-7:30

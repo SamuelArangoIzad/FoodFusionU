@@ -1,155 +1,114 @@
 package co.edu.upb.foodfusionu;
 
+
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class Spaces {
-	
-	//____________________________________________________________________________________________________________________________________________________________________________________________________
-    static int MAX_SPACES_PER_DAY = 6;
-    static int DAYS_OF_WEEK = 6;
-    static int HOURS_PER_DAY = 24;
-    String block = " ";
-    private boolean[][][] reservations;
 
-    
-
-	//____________________________________________________________________________________________________________________________________________________________________________________________________
-    
-    public Spaces() {
-    reservations = new boolean[DAYS_OF_WEEK][MAX_SPACES_PER_DAY][HOURS_PER_DAY];
-    }
-
-    public boolean reserveSpace(int dayOfWeek, int spaceIndex, int startHour, int endHour, String block) {
-    if (dayOfWeek < 0 || dayOfWeek >= DAYS_OF_WEEK || spaceIndex < 0 || spaceIndex >= MAX_SPACES_PER_DAY || startHour < 0 || startHour >= HOURS_PER_DAY || endHour < 0 || endHour >= HOURS_PER_DAY) {
-    System.out.println("Entradas Inválidas, Verifique");
-    return false;
-    }
-
-    if (reservationExists(dayOfWeek, spaceIndex, startHour, endHour, block)) {
-    System.out.println("Esta Reserva Ya Existe");
-    return false;
-    }
-
-        System.out.println("Confirmar reserva:");
-        System.out.println("Día de la semana: " + dayOfWeek);
-        System.out.println("Espacio: " + spaceIndex);
-        System.out.println("Hora de inicio: " + startHour);
-        System.out.println("Hora de fin: " + endHour);
-        System.out.println("Bloque: " + block);
-        System.out.print("¿Confirmar reserva? (Sí/No): ");
-
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String confirmacion = scanner.nextLine().trim();
 
-        if (confirmacion.equalsIgnoreCase("si") || confirmacion.equalsIgnoreCase("sí")) {
-        for (int hour = startHour; hour < endHour; hour++) {
-        reservations[dayOfWeek][spaceIndex][hour] = true;
-        }
-        if (saveReservationInfo(dayOfWeek, spaceIndex, startHour, endHour, block)) {
-        this.setBlock(block);
-        System.out.println("Reserva completa");
-        return true;
-        } else {
-        System.out.println("Error al guardar la información");
-        }
-        } else {
-        System.out.println("Reserva cancelada");
-        }
+        while (true) {
+            System.out.println("Bienvenido al Sistema de Reserva de la Universidad");
+            System.out.println(" ");
+            System.out.println("1. Ver espacios almacenados");
+            System.out.println("2. Alquilar un espacio");
+            System.out.println("3. Regresar al menú principal");
+            System.out.println(" ");
+            System.out.print("Seleccione una opción: ");
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumir la línea en blanco
 
+            switch (opcion) {
+                case 1:
+                    verEspaciosAlmacenados();
+                    break;
+                case 2:
+                    alquilarEspacio(scanner);
+                    break;
+                case 3:
+                    return; // Salir del programa
+                default:
+                    System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                    break;
+            }
+        }
+    }
+
+    private static void verEspaciosAlmacenados() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("reservas.txt"))) {
+            String line;
+            int numReserva = 1;
+            System.out.println("Espacios almacenados:");
+            while ((line = reader.readLine()) != null) {
+                String[] partes = line.split(",");
+                if (partes.length == 4) {
+                    System.out.println("Reserva #" + numReserva + ":");
+                    System.out.println("Bloque: " + partes[0]);
+                    System.out.println("Día de la semana: " + partes[1]);
+                    System.out.println("Espacio: " + partes[2]);
+                    System.out.println("Horario: " + partes[3]);
+                    System.out.println();
+                    numReserva++;
+                }
+            }
+            if (numReserva == 1) {
+                System.out.println("No hay reservas almacenadas.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void alquilarEspacio(Scanner scanner) {
+        System.out.print("Ingrese el Bloque (A, B, C, etc.): ");
+        String bloque = scanner.nextLine().toUpperCase();
+
+        System.out.print("Ingrese el Día de la Semana (Lunes a Viernes): ");
+        String diaSemana = scanner.nextLine();
+
+        System.out.print("Ingrese el Espacio: ");
+        String espacio = scanner.nextLine();
+
+        System.out.print("Ingrese el Horario que usará el espacio (Ejemplo, 9:00-10:30): ");
+        String horario = scanner.nextLine();
+
+        boolean ocupado = verificarOcupado(bloque, diaSemana, espacio, horario);
+
+        if (ocupado) {
+            System.out.println("Lo siento, ese espacio ya está ocupado en ese horario.");
+        } else {
+            guardarReserva(bloque, diaSemana, espacio, horario);
+            System.out.println("Reserva exitosa.");
+        }
+    }
+
+    private static boolean verificarOcupado(String bloque, String diaSemana, String espacio, String horario) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("reservas.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] partes = line.split(",");
+                if (partes.length == 4
+                        && partes[0].equalsIgnoreCase(bloque)
+                        && partes[1].equalsIgnoreCase(diaSemana)
+                        && partes[2].equalsIgnoreCase(espacio)
+                        && partes[3].equalsIgnoreCase(horario)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return false;
+    }
+
+    private static void guardarReserva(String bloque, String diaSemana, String espacio, String horario) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("reservas.txt", true))) {
+            writer.write(bloque + "," + diaSemana + "," + espacio + "," + horario);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-
-	//____________________________________________________________________________________________________________________________________________________________________________________________________
-    
-    public boolean saveReservationInfo(int dayOfWeek, int spaceIndex, int startHour, int endHour, String block) {
-    String fileName = "reservas.txt";
-    System.out.println("Guardado ");
-
-        try (FileWriter fileWriter = new FileWriter(fileName, true);
-             PrintWriter printWriter = new PrintWriter(fileWriter)) {
-    printWriter.println("Reserva realizada:");
-    printWriter.println("Día de la semana: " + dayOfWeek);
-    printWriter.println("Espacio: " + spaceIndex);
-    printWriter.println("Hora de inicio: " + startHour);
-    printWriter.println("Hora de fin: " + endHour);
-    printWriter.println("Bloque: " + block);
-    printWriter.println();
-    return true;
-    } catch (IOException e) {
-    e.printStackTrace();
-    return false;
     }
-    }
-
-    public String getBlock() {
-    return block;
-    }
-
-    public void setBlock(String block) {
-    this.block = block;
-    }
-
-    
-
-	//____________________________________________________________________________________________________________________________________________________________________________________________________
-    
-    public boolean reservationExists(int dayOfWeek, int spaceIndex, int startHour, int endHour, String block) {
-    try (Scanner scanner = new Scanner(new File("reservas.txt"))) {
-    while (scanner.hasNextLine()) {
-    String line = scanner.nextLine();
-    if (line.contains("Día de la semana: " + dayOfWeek) &&
-    line.contains("Espacio: " + spaceIndex) &&
-    line.contains("Hora de inicio: " + startHour) &&
-    line.contains("Hora de fin: " + endHour) &&
-    line.contains("Bloque: " + block)) {
-    return true;
-    }
-    }
-    } catch (FileNotFoundException e) {
-    e.printStackTrace();
-    }
-    return false;
-    }
-    
-    
-    
-
-	//____________________________________________________________________________________________________________________________________________________________________________________________________
-    
-    public void mostrarInformacionReservas() {
-    String fileName = "reservas.txt";
-
-    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-    String line;
-    System.out.println("Información de Reservas:");
-    while ((line = br.readLine()) != null) {
-    System.out.println(line);
-    }
-    } catch (IOException e) {
-    e.printStackTrace();
-    }
-    }
-    
-  //____________________________________________________________________________________________________________________________________________________________________________________________________
-    
-    public boolean espacioReservado(int dayOfWeek, int spaceIndex, int startHour, int endHour, String block) {
-    try (Scanner scanner = new Scanner(new File("reservas.txt"))) {
-    while (scanner.hasNextLine()) {
-    String line = scanner.nextLine();
-    if (line.contains("Día de la semana: " + dayOfWeek) &&
-    line.contains("Espacio: " + spaceIndex) &&
-    line.contains("Hora de inicio: " + startHour) &&
-    line.contains("Hora de fin: " + endHour) &&
-    line.contains("Bloque: " + block)) {
-    return true; // El espacio ya está reservado
-    }
-    }
-    } catch (FileNotFoundException e) {
-    e.printStackTrace();
-    }
-    return false; // El espacio está disponible
-    }
-       
 }
