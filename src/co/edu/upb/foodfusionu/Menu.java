@@ -56,7 +56,7 @@ public class Menu {
 	break;
 
 	case 3:
-	Offers.verofertas();
+	Offers.verOfertas();
 	break;
 
 	case 4:

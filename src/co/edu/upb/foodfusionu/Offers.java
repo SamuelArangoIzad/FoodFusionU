@@ -1,4 +1,4 @@
-package foodfusionu;
+package co.edu.upb.foodfusionu;
 
 import java.util.Scanner;
 
