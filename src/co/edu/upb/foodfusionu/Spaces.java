@@ -37,28 +37,25 @@ public class Spaces {
     }
 
     private static void verEspaciosAlmacenados() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("reservas.txt"))) {
-            String line;
-            int numReserva = 1;
-            System.out.println("Espacios almacenados:");
-            while ((line = reader.readLine()) != null) {
-                String[] partes = line.split(",");
-                if (partes.length == 4) {
-                    System.out.println("Reserva #" + numReserva + ":");
-                    System.out.println("Bloque: " + partes[0]);
-                    System.out.println("Día de la semana: " + partes[1]);
-                    System.out.println("Espacio: " + partes[2]);
-                    System.out.println("Horario: " + partes[3]);
-                    System.out.println();
-                    numReserva++;
-                }
-            }
-            if (numReserva == 1) {
-                System.out.println("No hay reservas almacenadas.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	 try (BufferedReader reader = new BufferedReader(new FileReader("reservas.txt"))) {
+    	        String line;
+    	        int numReserva = 1;
+    	        System.out.println("Espacios almacenados:");
+    	        while ((line = reader.readLine()) != null) {
+    	            String[] partes = line.split(",");
+    	            if (partes.length == 4) {
+    	                System.out.println("Reserva #" + numReserva + ":");
+    	                System.out.println(partes[0] + "," + partes[1] + "," + partes[2] + "," + partes[3]);
+    	                System.out.println();
+    	                numReserva++;
+    	            }
+    	        }
+    	        if (numReserva == 1) {
+    	            System.out.println("No hay reservas almacenadas.");
+    	        }
+    	    } catch (IOException e) {
+    	        e.printStackTrace();
+    	    }
     }
 
     private static void alquilarEspacio(Scanner scanner) {
@@ -85,22 +82,35 @@ public class Spaces {
     }
 
     private static boolean verificarOcupado(String bloque, String diaSemana, String espacio, String horario) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("reservas.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] partes = line.split(",");
-                if (partes.length == 4
-                        && partes[0].equalsIgnoreCase(bloque)
-                        && partes[1].equalsIgnoreCase(diaSemana)
-                        && partes[2].equalsIgnoreCase(espacio)
-                        && partes[3].equalsIgnoreCase(horario)) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+    	  try (BufferedReader reader = new BufferedReader(new FileReader("reservas.txt"))) {
+    	        String line;
+    	        while ((line = reader.readLine()) != null) {
+    	            String[] partes = line.split(",");
+    	            if (partes.length == 4
+    	                    && partes[0].equalsIgnoreCase(bloque)
+    	                    && partes[1].equalsIgnoreCase(diaSemana)
+    	                    && partes[2].equalsIgnoreCase(espacio)) {
+    	                String[] horariosReservados = partes[3].split("-");
+    	                String[] horariosNuevo = horario.split("-");
+
+    	                // Verificar superposición de horarios
+    	                if (horariosNuevo.length == 2 && horariosReservados.length == 2) {
+    	                    String inicioReservado = horariosReservados[0];
+    	                    String finReservado = horariosReservados[1];
+    	                    String inicioNuevo = horariosNuevo[0];
+    	                    String finNuevo = horariosNuevo[1];
+
+    	                    if ((inicioNuevo.compareTo(finReservado) < 0 && finNuevo.compareTo(inicioReservado) > 0) ||
+    	                            (inicioReservado.compareTo(finNuevo) < 0 && finReservado.compareTo(inicioNuevo) > 0)) {
+    	                        return true; // Hay superposición
+    	                    }
+    	                }
+    	            }
+    	        }
+    	    } catch (IOException e) {
+    	        e.printStackTrace();
+    	    }
+    	    return false;
     }
 
     private static void guardarReserva(String bloque, String diaSemana, String espacio, String horario) {

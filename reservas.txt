@@ -1,8 +1,2 @@
-Reserva realizada:
-Día de la semana: 1
-Espacio: 1
-Hora de inicio: 12
-Hora de fin: 1
-Bloque: Block A
-
 Z,Miercoles,10,6:30-7:30
+A,Martes,5,8:30-9:30

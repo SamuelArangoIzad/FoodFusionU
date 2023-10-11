@@ -11,12 +11,11 @@ public class Login {
 	
 	
 	public static void initializeUsers() {
-	users[0] = new User( 1," Juan"," 123");
-	users[1] = new User( 2," Mateo"," 123");
-	users[2] = new User( 3," Tomas"," 123");
-	users[3] = new User( 4," Samuel"," 123");
-	users[4] = new User( 5," Sergio"," 123");
-	users[5] = new User( 6," Johan"," 123");
+	users[0] = new User( 1," Mateo"," 123");
+	users[1] = new User( 2," Cristian"," 123");
+	users[2] = new User( 3," Samuel"," 123");
+	users[3] = new User( 4," Sergui"," 123");
+	users[4] = new User( 5," Johan"," 123");
 	userCount = 100;
 		
 	}
