@@ -14,7 +14,8 @@ public class Spaces {
             System.out.println(" ");
             System.out.println("1. Ver espacios almacenados");
             System.out.println("2. Alquilar un espacio");
-            System.out.println("3. Regresar al menú principal");
+            System.out.println("3. Eliminar un espacio");
+            System.out.println("4. Regresar al menu principal");
             System.out.println(" ");
             System.out.print("Seleccione una opción: ");
             int opcion = scanner.nextInt();
@@ -28,13 +29,76 @@ public class Spaces {
                     alquilarEspacio(scanner);
                     break;
                 case 3:
-                    return; // Salir del programa
+                	eliminarEspacio(scanner);
+                    break;
+                case 4:
+                	return;
+                	
                 default:
                     System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
                     break;
             }
         }
     }
+    
+    private static void eliminarEspacio(Scanner scanner) {
+        System.out.print("Ingrese el Bloque a eliminar (A, B, C, etc.): ");
+        String bloque = scanner.nextLine().toUpperCase();
+
+        System.out.print("Ingrese el Día de la Semana a eliminar (Lunes a Viernes): ");
+        String diaSemana = scanner.nextLine();
+
+        System.out.print("Ingrese el Espacio a eliminar: ");
+        String espacio = scanner.nextLine();
+
+        System.out.print("Ingrese el Horario a eliminar (Ejemplo, 9:00-10:30): ");
+        String horario = scanner.nextLine();
+
+        boolean eliminado = eliminarReserva(bloque, diaSemana, espacio, horario);
+
+        if (eliminado) {
+            System.out.println("Reserva eliminada exitosamente.");
+        } else {
+            System.out.println("La reserva no pudo ser encontrada o eliminada.");
+        }
+    }
+
+    private static boolean eliminarReserva(String bloque, String diaSemana, String espacio, String horario) {
+        List<String> lineas = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("reservas.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] partes = line.split(",");
+                if (partes.length == 4
+                        && partes[0].equalsIgnoreCase(bloque)
+                        && partes[1].equalsIgnoreCase(diaSemana)
+                        && partes[2].equalsIgnoreCase(espacio)
+                        && partes[3].equalsIgnoreCase(horario)) {
+                    // No agregamos esta línea a la lista, lo que la elimina
+                } else {
+                    lineas.add(line);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("reservas.txt"))) {
+            for (String linea : lineas) {
+                writer.write(linea);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+    
+    
 
     private static void verEspaciosAlmacenados() {
     	 try (BufferedReader reader = new BufferedReader(new FileReader("reservas.txt"))) {

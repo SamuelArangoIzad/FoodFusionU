@@ -1,2 +1,1 @@
-Z,Miercoles,10,6:30-7:30
-A,Martes,5,8:30-9:30
+Z,Miercoles,10,8:00-9:30
