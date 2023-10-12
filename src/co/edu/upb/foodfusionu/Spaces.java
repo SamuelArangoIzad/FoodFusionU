@@ -57,7 +57,7 @@ public class Spaces {
         boolean eliminado = eliminarReserva(bloque, diaSemana, espacio, horario);
 
         if (eliminado) {
-            System.out.println("Reserva eliminada exitosamente.");
+            System.out.println("O.K.");
         } else {
             System.out.println("La reserva no pudo ser encontrada o eliminada.");
         }
