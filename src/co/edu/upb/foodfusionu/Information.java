@@ -7,6 +7,12 @@ import java.io.IOException;
 
 
 public class Information {
+	
+	 private User currentUser; 
+
+	    public Information(User user) {
+	        this.currentUser = user;
+	 }
 
 	// Menu
 	private String[] comentarios = new String[100];
@@ -40,13 +46,12 @@ public class Information {
 
 	public void agregarComentario(String comentario) {
 		if (numeroComentarios < comentarios.length) {
-	        comentarios[numeroComentarios] = comentario;
+	        comentarios[numeroComentarios] = comentario + " - " + currentUser.getName(); 
 	        numeroComentarios++;
 
-	        // Guardar el comentario en un archivo de texto
 	        try {
 	            BufferedWriter writer = new BufferedWriter(new FileWriter("comentarios.txt", true));
-	            writer.write(comentario);
+	            writer.write(comentario + " - " + currentUser.getName());
 	            writer.newLine();
 	            writer.close();
 	        } catch (IOException e) {
