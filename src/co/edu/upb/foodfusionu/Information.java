@@ -1,10 +1,16 @@
 package co.edu.upb.foodfusionu;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class Information {
 
 	// Menu
 	private String[] comentarios = new String[100];
-	private int numeroComentarios = 1;
+	private int numeroComentarios = 0;
 
 	//Foods
 
@@ -32,37 +38,61 @@ public class Information {
 
 	//Menu
 
-	public Information() {
-		comentarios[0] = "Gracias a esta aplicación he tenido un mejor conocimiento de los productos vendidos por estudiantes, recomendada las hamburguesas son deliciosas";
-	}
-
 	public void agregarComentario(String comentario) {
 		if (numeroComentarios < comentarios.length) {
-			comentarios[numeroComentarios] = comentario;
-			numeroComentarios++;
-		} else {
-			System.out.println("No se pueden agregar más comentarios.");
-		}
+	        comentarios[numeroComentarios] = comentario;
+	        numeroComentarios++;
+
+	        // Guardar el comentario en un archivo de texto
+	        try {
+	            BufferedWriter writer = new BufferedWriter(new FileWriter("comentarios.txt", true));
+	            writer.write(comentario);
+	            writer.newLine();
+	            writer.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            System.out.println("Error al guardar el comentario en el archivo.");
+	        }
+	    } else {
+	        System.out.println("No se pueden agregar más comentarios.");
+	    }
 	}
 
 	public void mostrarComentarios() {
-		System.out.println("\nComentarios:");
-		for (int i = 0; i < numeroComentarios; i++) {
-			System.out.println(comentarios[i]);
-			System.out.println(); 
-		}
+		System.out.println("Comentarios:");
+	    try {
+	        BufferedReader reader = new BufferedReader(new FileReader("comentarios.txt"));
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            System.out.println(line);
+	        }
+	        reader.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al leer los comentarios desde el archivo.");
+	    }
 	}
 
 	//Division food
 
 	//Vegetales 
 	public void agregarComentarioV(String comentario) {
-		if (numeroComentariosV  < comentariosV.length) {
-			comentariosV[numeroComentariosV ] = comentario;
-			numeroComentariosV++;
-		} else {
-			System.out.println("No se pueden agregar más comentarios.");
-		}
+		if (numeroComentariosV < comentariosV.length) {
+	        comentariosV[numeroComentariosV] = comentario;
+	        numeroComentariosV++;
+
+	        try {
+	            BufferedWriter writer = new BufferedWriter(new FileWriter("comentarios.txt", true));
+	            writer.write(comentario);
+	            writer.newLine();
+	            writer.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            System.out.println("Error al guardar el comentario en el archivo.");
+	        }
+	    } else {
+	        System.out.println("No se pueden agregar más comentarios.");
+	    }
 	}
 
 	public void mostrarComentariosV() {
@@ -84,11 +114,18 @@ public class Information {
 	}
 
 	public void mostrarComentariosP() {
-		System.out.println("\nComentarios:");
-		for (int i = 0; i < numeroComentariosP; i++) {
-			System.out.println(comentariosP[i]);
-			System.out.println(); 
-		}
+		System.out.println("Comentarios:");
+	    try {
+	        BufferedReader reader = new BufferedReader(new FileReader("comentarios.txt"));
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            System.out.println(line);
+	        }
+	        reader.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al leer los comentarios desde el archivo.");
+	    }
 	}
 
 	//Salados
