@@ -2,12 +2,16 @@ package co.edu.upb.foodfusionu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -39,16 +43,6 @@ public class CarritoDeCompras {
 		preciosProductos.put("Jugos naturales", 2500.0);
 	}
 
-	public void agregarAlCarrito(String producto, int cantidad) {
-		if (preciosProductos.containsKey(producto)) {
-			carrito.add(producto);
-			cantidades.add(cantidad);
-			total += preciosProductos.get(producto) * cantidad;
-			System.out.println(producto + " agregado al carrito (Cantidad: " + cantidad + ")");
-		} else {
-			System.out.println("Producto no válido.");
-		}
-	}
 
 	public void verResumen() {
 	    System.out.println("----- Resumen del Carrito -----");
@@ -75,56 +69,142 @@ public class CarritoDeCompras {
 	    } else {
 	        System.out.println("El archivo no existe o no se puede acceder.");
 	    }
+	    for (int i = 0; i < carrito.size(); i++) {
+			String producto = carrito.get(i);
+			int cantidad = cantidades.get(i);
+			double precioUnitario = preciosProductos.get(producto);
+			double subtotal = precioUnitario * cantidad;
+			System.out.println(producto + " x" + cantidad + "- $" + subtotal);
+		}
 
 	    System.out.println("Total a pagar: $" + (total + totalFromTxt));
 	    System.out.println("------------------------------");
 	}
 
-
+	public void agregarAlCarrito(String producto, int cantidad) {
+		if (preciosProductos.containsKey(producto)) {
+			carrito.add(producto);
+			cantidades.add(cantidad);
+			total += preciosProductos.get(producto) * cantidad;
+			System.out.println(producto + " agregado al carrito (Cantidad: " + cantidad + ")");
+		} else {
+			System.out.println("Producto no válido.");
+		}
+	}
 
 	public void eliminarDelCarrito(String producto) {
-		String productoBuscado = producto.trim().toLowerCase(); // Limpia y convierte a minúsculas
-		int index = -1;
-		for (int i = 0; i < carrito.size(); i++) {
-			if (carrito.get(i).toLowerCase().equals(productoBuscado)) {
-				index = i;
-				break;
-			}
-		}
+	    String productoBuscado = producto.trim().toLowerCase(); // Limpia y convierte a minúsculas
+	    int index = -1;
+	    for (int i = 0; i < carrito.size(); i++) {
+	        if (carrito.get(i).toLowerCase().equals(productoBuscado)) {
+	            index = i;
+	            break;
+	        }
+	    }
 
-		if (index != -1) {
-			total -= preciosProductos.get(carrito.get(index)) * cantidades.get(index);
-			carrito.remove(index);
-			cantidades.remove(index);
-			System.out.println(producto + " eliminado del carrito.");
-		} else {
-			System.out.println("Producto no encontrado en el carrito.");
-		}
+	    if (index != -1) {
+	        total -= preciosProductos.get(carrito.get(index)) * cantidades.get(index);
+	        carrito.remove(index);
+	        cantidades.remove(index);
+	        System.out.println(producto + " eliminado del carrito.");
 
-		// Muestra los productos actualizados en el carrito
-		verResumen();
+	        // Actualizar el archivo de texto
+	        actualizarArchivo();
+	    } else {
+	        // Buscar en el archivo de texto
+	        eliminarDelArchivo(productoBuscado);
+	    }
+
+	    // Muestra los productos actualizados en el carrito
+	    verResumen();
 	}
+
+	private void actualizarArchivo() {
+	    String desktopPath = System.getProperty("user.home") + "/Documents/";
+	    Path path = Paths.get(desktopPath + "productos_seleccionados.txt");
+
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString()))) {
+	        for (int i = 0; i < carrito.size(); i++) {
+	            writer.write(carrito.get(i) + " - " + preciosProductos.get(carrito.get(i)) + "\n");
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	private void eliminarDelArchivo(String producto) {
+	    String desktopPath = System.getProperty("user.home") + "/Documents/";
+	    Path path = Paths.get(desktopPath + "productos_seleccionados.txt");
+
+	    try {
+	        List<String> lines = Files.readAllLines(path);
+	        List<String> updatedLines = new ArrayList<>();
+	        boolean found = false;
+	        for (String line : lines) {
+	            if (line.toLowerCase().startsWith(producto)) {
+	                found = true;
+	                total -= Double.parseDouble(line.split(" - ")[1].substring(1).replace(",", ""));
+	                continue;
+	            }
+	            updatedLines.add(line);
+	        }
+	        if (found) {
+	            Files.write(path, updatedLines);
+	            System.out.println(producto + " eliminado del carrito.");
+	        } else {
+	            System.out.println("Producto no encontrado en el carrito.");
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
+	public void modificarCantidad(String producto, int nuevaCantidad) {
+	    int index = carrito.indexOf(producto);
+	    if (index != -1) {
+	        double precioUnitario = preciosProductos.get(producto);
+	        double subtotalAnterior = precioUnitario * cantidades.get(index);
+	        cantidades.set(index, nuevaCantidad);
+	        double nuevoSubtotal = precioUnitario * nuevaCantidad;
+	        total += nuevoSubtotal - subtotalAnterior;
+	        System.out.println("Cantidad de " + producto + " modificada a " + nuevaCantidad);
+	    } else {
+	        // Buscar en el archivo de texto
+	        String desktopPath = System.getProperty("user.home") + "/Documents/";
+	        Path path = Paths.get(desktopPath + "productos_seleccionados.txt");
+	        if (Files.exists(path)) {
+	            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path.toString()))) {
+	                String line;
+	                while ((line = bufferedReader.readLine()) != null) {
+	                    if (line.toLowerCase().startsWith(producto.toLowerCase())) {
+	                        String[] parts = line.split(" - ");
+	                        String productName = parts[0];
+	                        double price = Double.parseDouble(parts[1].substring(1).replace(",", ""));
+	                        double subtotalAnterior = price * cantidades.get(index);
+	                        cantidades.set(index, nuevaCantidad);
+	                        double nuevoSubtotal = price * nuevaCantidad;
+	                        total += nuevoSubtotal - subtotalAnterior;
+	                        System.out.println("Cantidad de " + productName + " modificada a " + nuevaCantidad);
+	                        return;
+	                    }
+	                }
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        System.out.println("Producto no encontrado en el carrito.");
+	    }
+	}
+
+	
 	
 	public void agregarProductosDesdeRecomendaciones(ArrayList<String> productos, ArrayList<Double> precios) {
 		for (int i = 0; i < productos.size(); i++) {
 			agregarAlCarrito(productos.get(i), 1); // Agregar cada producto con una cantidad de 1 por defecto
 		}
 	}
-
-
-	public void modificarCantidad(String producto, int nuevaCantidad) {
-		int index = carrito.indexOf(producto);
-		if (index != -1) {
-			double precioUnitario = preciosProductos.get(producto);
-			double subtotalAnterior = precioUnitario * cantidades.get(index);
-			cantidades.set(index, nuevaCantidad);
-			double nuevoSubtotal = precioUnitario * nuevaCantidad;
-			total += nuevoSubtotal - subtotalAnterior;
-			System.out.println("Cantidad de " + producto + " modificada a " + nuevaCantidad);
-		} else {
-			System.out.println("Producto no encontrado en el carrito.");
-		}
-	}
+	
 	public void gestionarProductosSeleccionados() {
 		ArrayList<String> productosSeleccionados = Recommendations.getProductosSeleccionados();
 

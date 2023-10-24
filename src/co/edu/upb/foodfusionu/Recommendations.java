@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 public class Recommendations {
@@ -18,8 +15,6 @@ public class Recommendations {
 	    ArrayList<String> productosSeleccionados = new ArrayList<>(); // Almacena productos seleccionados
 	    ArrayList<Double> preciosSeleccionados = new ArrayList<>(); // Almacena precios de productos seleccionados
 
-		double total = 0.0;
-
 		while (true) {
 			// Mostrar las opciones al usuario
 			System.out.println("Recomendaciones del día:");
@@ -28,7 +23,6 @@ public class Recommendations {
 			System.out.println("2. Arepas(Para quedar bien satisfecho)");
 			System.out.println("3. De dulce(Más elegido para onces )");
 			System.out.println("4. Bebidas (Lo mejor para cualquier momento)");
-			System.out.println("5. Ver y gestionar el carrito de compras");
 			System.out.println(" ");
 			System.out.println("0. Salir");
 
@@ -92,11 +86,6 @@ public class Recommendations {
 				for (String bebida : bebidas) {
 					System.out.println(bebida);
 				}
-				break;
-
-			case 5:
-				carrito.gestionarProductosSeleccionados();;
-				break;
 			default:
 				break;
 			}
@@ -127,7 +116,7 @@ public class Recommendations {
 			}
 
 			// Mostrar el pedido y calcular el total a pagar
-			System.out.println("Pedido enviado correctamente alcarrito de compras");
+			System.out.println("Pedido enviado correctamente al carrito de compras");
 			carrito.agregarProductosDesdeRecomendaciones(productosSeleccionados, preciosSeleccionados);
 			
 		}
@@ -143,7 +132,6 @@ public class Recommendations {
 	            fileWriter.write(productos.get(i) + " - $" + precios.get(i) + "\n");
 	        }
 	        fileWriter.close();
-	        System.out.println("Archivo guardado con éxito en el escritorio.");
 	        return true;
 	    } catch (IOException e) {
 	        e.printStackTrace();
