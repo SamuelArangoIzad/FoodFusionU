@@ -14,7 +14,8 @@ public class Menu {
 	static Scanner scanner = new Scanner(System.in);
 
 	public static void vermenu(User authenticatedUser) throws IOException {
-
+		
+		User currentUser = authenticatedUser;
 		if (authenticatedUser == null) {
 			System.out.println("Acceso denegado. Por favor, inicie sesion");
 			return;
@@ -86,7 +87,9 @@ public class Menu {
 
 			case 6:
 
-				Information information = new Information();
+				if (currentUser != null) {
+			        Information information = new Information(currentUser);
+			    
 				int infoOption;
 
 				do {
@@ -119,7 +122,7 @@ public class Menu {
 						System.out.println("Opción no valida. Intentalo de nuevo.");
 						break;
 					}
-				} while (infoOption != 3);
+				} while (infoOption != 3);}
 				break;
 
 			case 0:

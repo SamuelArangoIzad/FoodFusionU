@@ -140,7 +140,7 @@ public class Request {
 
 			} while (opcion != 6);
 
-			scanner.close();
+			
 		}
 		public static class PedidoDeComidaEnLinea{
 
