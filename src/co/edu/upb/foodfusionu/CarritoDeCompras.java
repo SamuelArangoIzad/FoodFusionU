@@ -4,13 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 
 public class CarritoDeCompras {
 	private static final Map<String, Double> preciosProductos = new HashMap<>();
 
 	private ArrayList<String> carrito = new ArrayList<>();
 	private ArrayList<Integer> cantidades = new ArrayList<>();
-	private double total = 0.0;
+	private double total;
 
 	static {
 		// Define los precios de los productos aquí
@@ -44,16 +51,33 @@ public class CarritoDeCompras {
 	}
 
 	public void verResumen() {
-		System.out.println("----- Resumen del Carrito -----");
-		for (int i = 0; i < carrito.size(); i++) {
-			String producto = carrito.get(i);
-			int cantidad = cantidades.get(i);
-			double precioUnitario = preciosProductos.get(producto);
-			double subtotal = precioUnitario * cantidad;
-			System.out.println(producto + " x" + cantidad + ": $" + subtotal);
-		}
-		System.out.println("Total a pagar: $" + total);
-		System.out.println("------------------------------");
+	    System.out.println("----- Resumen del Carrito -----");
+
+	    String desktopPath = System.getProperty("user.home") + "/Documents/";
+	    Path path = Paths.get(desktopPath + "productos_seleccionados.txt");
+	    double totalFromTxt = 0.0;
+
+	    if (Files.exists(path)) {
+	        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path.toString()))) {
+	            String line;
+	            while ((line = bufferedReader.readLine()) != null) {
+	                String[] parts = line.split(" - ");
+	                String productName = parts[0];
+	                if (preciosProductos.containsKey(productName)) {
+	                    double price = Double.parseDouble(parts[1].substring(1).replace(",", ""));
+	                    totalFromTxt += price;
+	                }
+	                System.out.println(line);
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("El archivo no existe o no se puede acceder.");
+	    }
+
+	    System.out.println("Total a pagar: $" + (total + totalFromTxt));
+	    System.out.println("------------------------------");
 	}
 
 
@@ -80,6 +104,12 @@ public class CarritoDeCompras {
 		// Muestra los productos actualizados en el carrito
 		verResumen();
 	}
+	
+	public void agregarProductosDesdeRecomendaciones(ArrayList<String> productos, ArrayList<Double> precios) {
+		for (int i = 0; i < productos.size(); i++) {
+			agregarAlCarrito(productos.get(i), 1); // Agregar cada producto con una cantidad de 1 por defecto
+		}
+	}
 
 
 	public void modificarCantidad(String producto, int nuevaCantidad) {
@@ -97,8 +127,6 @@ public class CarritoDeCompras {
 	}
 	public void gestionarProductosSeleccionados() {
 		ArrayList<String> productosSeleccionados = Recommendations.getProductosSeleccionados();
-
-		System.out.println("----- Cart Management -----");
 
 		if (productosSeleccionados.isEmpty()) {
 			System.out.println("You have not selected any products from the Recommendations section.");
@@ -148,9 +176,12 @@ public class CarritoDeCompras {
 				break;
 			case 5:
 				System.out.println("¡Pedido finalizado!\n" + "Gracias por su compra");
+				System.out.println("Su pedido: ");
+				verResumen();
 				return;
 			default:
 				System.out.println("Opción no válida.");
+				break;
 			}
 
 		}

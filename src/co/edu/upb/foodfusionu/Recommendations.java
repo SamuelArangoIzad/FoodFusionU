@@ -2,6 +2,12 @@ package co.edu.upb.foodfusionu;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 public class Recommendations {
 	private static ArrayList<String> productosSeleccionados = new ArrayList<>();
@@ -9,8 +15,8 @@ public class Recommendations {
 	public static void recomendaciones() {
 		CarritoDeCompras carrito = new CarritoDeCompras();
 		Scanner scanner = new Scanner(System.in);
-		ArrayList<String> pedido = new ArrayList<>();
-		ArrayList<Double> precios = new ArrayList<>();
+	    ArrayList<String> productosSeleccionados = new ArrayList<>(); // Almacena productos seleccionados
+	    ArrayList<Double> preciosSeleccionados = new ArrayList<>(); // Almacena precios de productos seleccionados
 
 		double total = 0.0;
 
@@ -107,23 +113,44 @@ public class Recommendations {
 
 			// Registra el producto seleccionado y su precio en el pedido
 			if (opcionSeleccionada >= 1 && opcionSeleccionada <= 4) {
-				pedido.add(obtenerProducto(opcionSeleccionada, productoSeleccionado));
-				precios.add(obtenerPrecio(opcionSeleccionada, productoSeleccionado));
+			    String producto = obtenerProducto(opcionSeleccionada, productoSeleccionado);
+			    double precio = obtenerPrecio(opcionSeleccionada, productoSeleccionado);
+
+			    productosSeleccionados.add(producto); // Agrega productos seleccionados
+			    preciosSeleccionados.add(precio); // Agrega precios de productos seleccionados
+
+			    carrito.agregarAlCarrito(producto, 1);
+			    agregarProductoSeleccionado(producto); // Agregar a la lista de productos seleccionados
+
+			    // Agregar producto seleccionado al archivo de texto con su precio
+			    Recommendations.guardarProductosEnArchivo("productos_seleccionados.txt", productosSeleccionados, preciosSeleccionados);
 			}
-			if (opcionSeleccionada >= 1 && opcionSeleccionada <= 4) {
-				String producto = obtenerProducto(opcionSeleccionada, productoSeleccionado);
-				int cantidad = 1; 
-				carrito.agregarAlCarrito(producto, cantidad);
-				Recommendations.agregarProductoSeleccionado(producto); // Agregar a la lista de productos seleccionados
-			}
+
+			// Mostrar el pedido y calcular el total a pagar
+			System.out.println("Pedido enviado correctamente alcarrito de compras");
+			carrito.agregarProductosDesdeRecomendaciones(productosSeleccionados, preciosSeleccionados);
+			
 		}
-
-
-		// Mostrar el pedido y calcular el total a pagar
-		System.out.println("Su pedido:");
-		carrito.verResumen();
+		
+	
 	}
-
+	
+	public static boolean guardarProductosEnArchivo(String nombreArchivoDestino, ArrayList<String> productos, ArrayList<Double> precios) {
+	    String escritorio = System.getProperty("user.home") + "\\Documents\\" + nombreArchivoDestino;
+	    try {
+	        FileWriter fileWriter = new FileWriter(escritorio, true);
+	        for (int i = 0; i < productos.size(); i++) {
+	            fileWriter.write(productos.get(i) + " - $" + precios.get(i) + "\n");
+	        }
+	        fileWriter.close();
+	        System.out.println("Archivo guardado con éxito en el escritorio.");
+	        return true;
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
 	//  Muestra qué se ordenó
 	public static String obtenerProducto(int opcion, int seleccion) {
 		switch (opcion) {

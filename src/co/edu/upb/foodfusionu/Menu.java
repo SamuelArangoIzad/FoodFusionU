@@ -27,17 +27,19 @@ public class Menu {
 			System.out.println("______[PANEL]______");
 
 			System.out.println("");
-			System.out.println("1. Menu y pedido");    // Juan
-			System.out.println("");
-			System.out.println("2. Ofertas");     // Tomas
-			System.out.println("");
-			System.out.println("3. Espacios");    // Tomas
-			System.out.println("");
-			System.out.println("4. Recomendaciones");   // Samuel
-			System.out.println("");
-			System.out.println("5. Información");  // Sergio
-			System.out.println("");
-			System.out.println("0. Salir");
+			System.out.println("1. Menu y pedido\n");    // Juan
+			
+			System.out.println("2. Ofertas\n");     // Tomas
+			
+			System.out.println("3. Espacios\n");    // Samuel
+			
+			System.out.println("4. Recomendaciones\n");   // Sergio
+			
+			System.out.println("5. Carrito de Compras\n");// Sergio
+			
+			System.out.println("6. Información\n");
+			
+			System.out.println("0. Salir\n");
 
 			System.out.print("Escribe una opcion: ");
 			option = scanner.nextInt();
@@ -73,12 +75,16 @@ public class Menu {
 
 				break;
 
+			case 5:
 
+				CarritoDeCompras carritoDeCompras = new CarritoDeCompras();
+				carritoDeCompras.gestionarProductosSeleccionados();
+				break;
 
 
 				//____________________________________________________________________________________________________________________________________________________________________________________________________
 
-			case 5:
+			case 6:
 
 				Information information = new Information();
 				int infoOption;
@@ -129,11 +135,17 @@ public class Menu {
 		} while (option != 0);
 
 	}
+	//=======================================================================================================================================
+
+	
+
+
+
+
 }
 
 
 
-//=======================================================================================================================================
 
 
 

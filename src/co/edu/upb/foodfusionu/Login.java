@@ -14,7 +14,7 @@ public class Login {
 		users[0] = new User( 1,"Mateo","123");
 		users[1] = new User( 2,"Cristian","123");
 		users[2] = new User( 3,"Samuel","123");
-		users[3] = new User( 4,"Sergui","123");
+		users[3] = new User( 4,"Sergio","123");
 		users[4] = new User( 5,"Johan","123");
 		userCount = 100;
 
