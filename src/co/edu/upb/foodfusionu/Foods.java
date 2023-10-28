@@ -137,7 +137,7 @@ public class Foods {
 
 
 			int opcionTipoPlato = scanner.nextInt();
-			Information information = new Information();
+			Information information = new Information(null);
 			int opcion;
 
 
