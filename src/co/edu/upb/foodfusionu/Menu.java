@@ -20,34 +20,22 @@ public class Menu {
 			System.out.println("Acceso denegado. Por favor, inicie sesion");
 			return;
 		}
-
 		int option = 0;
-
 		do {
-
 			System.out.println("______[PANEL]______");
-
 			System.out.println("");
-			System.out.println("1. Menu y pedido\n");    // Juan
-			
-			System.out.println("2. Ofertas\n");     // Tomas
-			
+			System.out.println("1. Menu y pedido\n");    // Juan--Mateo
+			System.out.println("2. Ofertas\n");     // Tomas--CRISTIAN
 			System.out.println("3. Espacios\n");    // Samuel
-			
 			System.out.println("4. Recomendaciones\n");   // Sergio
-			
 			System.out.println("5. Carrito de Compras\n");// Sergio
-			
-			System.out.println("6. Información\n");
-			
+			System.out.println("6. Información\n"); //Johan
 			System.out.println("0. Salir\n");
-
 			System.out.print("Escribe una opcion: ");
 			option = scanner.nextInt();
 			scanner.nextLine();
 
 			switch (option) {
-
 
 			case 1:	
 				FoodFusionUApp app = new Request().new FoodFusionUApp();
@@ -66,9 +54,7 @@ public class Menu {
 
 				break;
 
-
 				//____________________________________________________________________________________________________________________________________________________________________________________________________
-
 			case 4:
 
 				Recommendations recommendations = new Recommendations();
@@ -84,14 +70,10 @@ public class Menu {
 
 
 				//____________________________________________________________________________________________________________________________________________________________________________________________________
-
 			case 6:
-
 				if (currentUser != null) {
 			        Information information = new Information(currentUser);
-			    
 				int infoOption;
-
 				do {
 					System.out.println("\nMenu:");
 					System.out.println("1. Mostrar Comentarios");
@@ -134,22 +116,7 @@ public class Menu {
 				System.out.println("Opción inválida. Escribe una opcion valida");
 				break;
 			}
-
 		} while (option != 0);
-
 	}
 	//=======================================================================================================================================
-
-	
-
-
-
-
 }
-
-
-
-
-
-
-

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-
 public class Foods {
 
 	public  void vercomidas() {
@@ -107,9 +105,7 @@ public class Foods {
 		for (Platos plato : Bebidas) {
 			System.out.println(plato.getNombre());
 		}
-
 		Scanner scanner = new Scanner(System.in);
-
 		while (true) {
 			System.out.println(" ");
 			System.out.println("Elige el tipo de plato:");
@@ -122,7 +118,6 @@ public class Foods {
 			System.out.println("0. Salir");
 			System.out.print("Write Your Option: ");
 
-
 			//Esta es parte de juan contreras esto funciona con una clase principal llamada Foods
 			//en el metodo ver comidas se crea una instancia de la clase listacomidas que se utiliza para almacenar los platos
 			//se agregan los platos a la lista de comidas utilizando el metodo agregarplato cada plato tiene un nombre y una categoria quese pasa como argumentos
@@ -133,23 +128,15 @@ public class Foods {
 			//usando 0
 			//la clase platos utiliza para representar cada plato con propiedades nombre y tipo y la clase de lista de comidas se utiliza para mantener una lista
 			//de platos y proporciona metodos para agregar platos y obtener platos por categoria
-
-
-
 			int opcionTipoPlato = scanner.nextInt();
 			Information information = new Information(null);
 			int opcion;
-
-
 			//Se tiene pensado que cuando el usuario eliga por ejemplo una comida de la lista de comidas me diga la informacion respecto a la comida categorias, calorias, proteina, grasa de la comida
 			// nutrientes entre otros asuntos como el azucar y la sal y en que le puede beneficiar y en que cosas no por comida por eso se puede elegir dentro de las comidas cada comida y luego salir 
-
-
 			if (opcionTipoPlato == 0) {
 				System.out.println("¡Hasta luego!");
 				break;
 			}
-
 			List<Platos> platosElegidos = null;
 			String tipoPlatoElegido = "";
 
@@ -163,9 +150,6 @@ public class Foods {
 				for (int i = 0; i < platosElegidos.size(); i++) {
 					System.out.println((i + 1) + ". " + platosElegidos.get(i).getNombre());
 				}
-
-
-
 				do {
 					System.out.println("\nComentarios de los platos:");
 					System.out.println("1. Mostrar comentarios");
@@ -202,8 +186,6 @@ public class Foods {
 				for (int i = 0; i < platosElegidos.size(); i++) {
 					System.out.println((i + 1) + ". " + platosElegidos.get(i).getNombre());
 				}
-
-
 				do {
 					System.out.println("\nComentarios de los platos:");
 					System.out.println("1. Mostrar comentarios");
@@ -231,7 +213,6 @@ public class Foods {
 					}
 				} while (opcion != 3);
 				break;
-
 			case 3:
 				platosElegidos = listaComidas.obtenerPlatosPorTipo("Salados");
 				tipoPlatoElegido = "Salados";
@@ -240,10 +221,6 @@ public class Foods {
 				for (int i = 0; i < platosElegidos.size(); i++) {
 					System.out.println((i + 1) + ". " + platosElegidos.get(i).getNombre());
 				}
-
-
-				//____________________________________________________________________________________________________________________________        
-
 				do {
 					System.out.println("\nComentarios de los platos:");
 					System.out.println("1. Mostrar comentarios");
@@ -271,7 +248,6 @@ public class Foods {
 					}
 				} while (opcion != 3);
 				break;
-
 			case 4:
 				platosElegidos = listaComidas.obtenerPlatosPorTipo("Nutritivas");
 				tipoPlatoElegido = "Nutritivas";
@@ -309,7 +285,6 @@ public class Foods {
 				} while (opcion != 3);
 
 				break;
-
 			case 5:
 				platosElegidos = listaComidas.obtenerPlatosPorTipo("Comida Rapida");
 				tipoPlatoElegido = "Comida Rapida";
@@ -318,7 +293,6 @@ public class Foods {
 				for (int i = 0; i < platosElegidos.size(); i++) {
 					System.out.println((i + 1) + ". " + platosElegidos.get(i).getNombre());
 				}
-
 
 				do {
 					System.out.println("\nComentarios de los platos:");
@@ -356,7 +330,6 @@ public class Foods {
 				for (int i = 0; i < platosElegidos.size(); i++) {
 					System.out.println((i + 1) + ". " + platosElegidos.get(i).getNombre());
 				}
-
 
 				do {
 					System.out.println("\nComentarios de los platos:");
@@ -401,7 +374,6 @@ public class Foods {
 
 			int opcionPlato = scanner.nextInt();
 
-
 			if (opcionPlato == 0) {
 				continue;
 			}
@@ -412,10 +384,7 @@ public class Foods {
 			} else {
 				System.out.print("Opción no válida. Por favor elige un número válido: ");
 			}
-
 		}
-
-
 	}
 }
 
@@ -458,9 +427,4 @@ class ListaComidas {
 		return platosPorTipo;
 	}
 }
-
-
-
-
 //=======================================================================================================================================
-

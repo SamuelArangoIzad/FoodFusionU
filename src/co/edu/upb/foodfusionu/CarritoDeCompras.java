@@ -15,7 +15,6 @@ import java.nio.file.StandardOpenOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-
 public class CarritoDeCompras {
 	private static final Map<String, Double> preciosProductos = new HashMap<>();
 
@@ -42,7 +41,6 @@ public class CarritoDeCompras {
 		preciosProductos.put("Chocolate", 2000.0);
 		preciosProductos.put("Jugos naturales", 2500.0);
 	}
-
 
 	public void verResumen() {
 	    System.out.println("----- Resumen del Carrito -----");
@@ -159,7 +157,6 @@ public class CarritoDeCompras {
 	    }
 	}
 
-
 	public void modificarCantidad(String producto, int nuevaCantidad) {
 	    int index = carrito.indexOf(producto);
 	    if (index != -1) {
@@ -197,8 +194,6 @@ public class CarritoDeCompras {
 	    }
 	}
 
-	
-	
 	public void agregarProductosDesdeRecomendaciones(ArrayList<String> productos, ArrayList<Double> precios) {
 		for (int i = 0; i < productos.size(); i++) {
 			agregarAlCarrito(productos.get(i), 1); // Agregar cada producto con una cantidad de 1 por defecto
@@ -227,10 +222,8 @@ public class CarritoDeCompras {
 			System.out.println("4. Ver productos en carrito");
 			System.out.println("5. Finalizar pedido");
 			System.out.print("Elija una opción: ");
-
 			int opcion = scanner.nextInt();
 			scanner.nextLine(); // Limpiar el salto de línea
-
 			switch (opcion) {
 			case 1:
 				System.out.print("Ingrese el nombre del producto: ");
@@ -263,9 +256,6 @@ public class CarritoDeCompras {
 				System.out.println("Opción no válida.");
 				break;
 			}
-
 		}
-
 	}
-
 }

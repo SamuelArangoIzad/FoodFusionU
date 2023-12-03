@@ -1,9 +1,7 @@
-
 package co.edu.upb.foodfusionu;
 
 import java.io.IOException;
 import java.util.Scanner;
-
 
 public class Principal {
 
@@ -22,28 +20,16 @@ public class Principal {
 	//En cada iteracion del bucle el metodo main() solicita al usuario que ingrese una opcion si el usuario ingresa la opcion 1 el metodo main() imprime el mensaje "Exit.."
 	//luego el bucle termina y el programa se cierra
 
-
-
-
 	static Scanner scanner=new Scanner (System.in);
 	public static void main(String [] args) throws IOException{
-
 		//Variable de control para saber si cerrar el programa o no
-
 		int opciondecontrol=0;
-
 		Login.initializeUsers();
-
 		//=================================================================================================================================================
 
 		//SALIDA O CONTINUACION DEL PROGRAMA 
 
 		//=================================================================================================================================================
-
-
-
-
-
 
 		//Si el usuario ingresa la opcion 2 el metodo main() llama al metodo login() el metodo login() recibe dos arreglos como parametros un arreglo de int que contiene los IDs
 		//de usuario y un arreglo de String que contiene los nombres de usuario
@@ -53,46 +39,24 @@ public class Principal {
 		//SECCION DE LOGIN
 
 		//=================================================================================================================================================	
-
-
 		System.out.println("LOGIN");
-
 		//Usamos una array ya definida ya que un arraylist es de tipo dinamico
 		//realmente implemente arraylist pero mejor se llego a la conclusion de implementar lo enseñado
 		//para llevarlo a la practica y crear algo bueno que se adapte y cumpla con nuestras especificaciones y         
 		//Y tambien que vaya acorde a lo aprendido
-
 		User authenticatedUser = Login.login();
 		if(authenticatedUser !=null) {
 			System.out.println("Login Successful.");
 			Menu.vermenu(authenticatedUser);
-
 		}
-
-
 		//=================================================================================================================================================
 
 		//SECCION DE MENU 
 
 		//=================================================================================================================================================
 
-
-
-
-
-
-
-
 		//El metodo login() busca el ID de usuario , finalmente el metodo main() llama el metodo vermenu() el metodo vermenu() imprime el menu de la aplicacion de 
 		//comida 
-
-
-
 	}
-
-
 }
-
-
 //=======================================================================================================================================
-

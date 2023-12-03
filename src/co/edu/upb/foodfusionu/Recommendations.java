@@ -5,7 +5,6 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
 public class Recommendations {
 	private static ArrayList<String> productosSeleccionados = new ArrayList<>();
 
@@ -99,7 +98,6 @@ public class Recommendations {
 			if (productoSeleccionado == 0) {
 				break; // Termina el pedido si el usuario selecciona 0
 			}
-
 			// Registra el producto seleccionado y su precio en el pedido
 			if (opcionSeleccionada >= 1 && opcionSeleccionada <= 4) {
 			    String producto = obtenerProducto(opcionSeleccionada, productoSeleccionado);
@@ -114,14 +112,10 @@ public class Recommendations {
 			    // Agregar producto seleccionado al archivo de texto con su precio
 			    Recommendations.guardarProductosEnArchivo("productos_seleccionados.txt", productosSeleccionados, preciosSeleccionados);
 			}
-
 			// Mostrar el pedido y calcular el total a pagar
 			System.out.println("Pedido enviado correctamente al carrito de compras");
-			carrito.agregarProductosDesdeRecomendaciones(productosSeleccionados, preciosSeleccionados);
-			
+			carrito.agregarProductosDesdeRecomendaciones(productosSeleccionados, preciosSeleccionados);	
 		}
-		
-	
 	}
 	
 	public static boolean guardarProductosEnArchivo(String nombreArchivoDestino, ArrayList<String> productos, ArrayList<Double> precios) {

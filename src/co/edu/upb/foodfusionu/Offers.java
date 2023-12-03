@@ -100,6 +100,7 @@ public class Offers {
             System.out.println("OPCIÓN INVÁLIDA \n REGRESANDO AL MENÚ");
         }
     }
+    
     public static int seleccionCombo() {
         System.out.println("Selecciona un combo:");
         System.out.println("1. Desayuno");
@@ -141,8 +142,6 @@ public class Offers {
     double saldo = scanner.nextDouble();
     boolean encontrado = false; // Variable para indicar si se encontraron ofertas
 
-    
-
     for (int dia = 0; dia < diasSemana.length; dia++) {
         String[] comidas = menuComidas[dia];
         double[] precios = preciosComidas[dia];
@@ -155,14 +154,12 @@ public class Offers {
                 if (!ofertaEnDia) {
                     System.out.println( diasSemana[dia]);
                     ofertaEnDia = true; // Marcar que hay ofertas ese día
-                }
-                  
+                }           
                 System.out.println("  " + comidas[i] + " - Precio Original: $" + precioOriginal + " - Precio con Descuento: $" + precioConDescuento);
                 encontrado = true; // Marcar que se encontró una oferta
             }
         }
     }
-
     if (!encontrado) {
         System.out.println(" no hay ofertas que se ajusten a su presupuesto en ningún día.");
     }

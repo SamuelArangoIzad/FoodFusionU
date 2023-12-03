@@ -1,10 +1,10 @@
 package co.edu.upb.foodfusionu;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 
 public class Information {
 	
@@ -17,7 +17,6 @@ public class Information {
 	// Menu
 	private String[] comentarios = new String[100];
 	private int numeroComentarios = 0;
-
 	//Foods
 
 	//Vegetales
@@ -41,7 +40,6 @@ public class Information {
 	//Espacios
 	private String[] comentariosE = new String[100];
 	private int numeroComentariosE= 0;
-
 	//Menu
 
 	public void agregarComentario(String comentario) {
@@ -77,7 +75,6 @@ public class Information {
 	        System.out.println("Error al leer los comentarios desde el archivo.");
 	    }
 	}
-
 	//Division food
 
 	//Vegetales 
@@ -107,7 +104,6 @@ public class Information {
 			System.out.println(); 
 		}
 	}
-
 	//Postres
 	public void agregarComentarioP(String comentario) {
 		if (numeroComentariosP  < comentariosP.length) {
@@ -132,7 +128,6 @@ public class Information {
 	        System.out.println("Error al leer los comentarios desde el archivo.");
 	    }
 	}
-
 	//Salados
 	public void agregarComentarioS(String comentario) {
 		if (numeroComentariosS  < comentariosS.length) {
@@ -150,7 +145,6 @@ public class Information {
 			System.out.println(); 
 		}
 	}
-
 	//Nutritiva
 
 	public void agregarComentarioN(String comentario) {
@@ -169,7 +163,6 @@ public class Information {
 			System.out.println(); 
 		}
 	}
-
 	//Comida Rapida
 
 	public void agregarComentarioCR(String comentario) {
@@ -188,7 +181,6 @@ public class Information {
 			System.out.println(); 
 		}
 	}
-
 	//Bebidas
 
 	public void agregarComentarioB(String comentario) {
@@ -207,7 +199,6 @@ public class Information {
 			System.out.println(); 
 		}
 	}
-
 	//Espacios
 
 	public void agregarComentarioE(String comentario) {
@@ -226,6 +217,4 @@ public class Information {
 			System.out.println(); 
 		}
 	}
-
-
 }

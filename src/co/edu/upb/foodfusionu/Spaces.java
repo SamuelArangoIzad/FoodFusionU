@@ -1,6 +1,5 @@
 package co.edu.upb.foodfusionu;
 
-
 import java.io.*;
 import java.util.*;
 
@@ -97,8 +96,6 @@ public class Spaces {
 
 		return true;
 	}
-
-
 
 	private static void verEspaciosAlmacenados() {
 		try (BufferedReader reader = new BufferedReader(new FileReader("reservas.txt"))) {
